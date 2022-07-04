@@ -1,0 +1,27 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: dep
+      run: brew install flatbuffers
+    
+    - name: test
+      run: make test
+      
+    - name: clippy
+      run: make clippy_check
+
+    - name: clean
+      run: make clean
